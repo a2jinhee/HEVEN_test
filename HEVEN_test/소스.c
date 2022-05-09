@@ -36,11 +36,6 @@ int main() {
 	}
 	
 
-	if(n[xcar+1][ycar])
-
-
-
-
 	return 0;
 
 }
