@@ -3,7 +3,10 @@
 #include<math.h>
 #define _CRT_SECURE_NO_WARNINGS
 
-int goal[50][50]; int xgoal, ygoal;
+int goal[50][50]; 
+int open[50][50];
+int car[50][50];
+int wall[50][50];
 
 int openPath(int* n, int xcar, int ycar) {
 
@@ -26,17 +29,13 @@ int findPath(int *diffPath) {
 	return min;
 }
 
-
 int main() {
-
-	int N, a, b;
 	int n[50][50];
-	int open[50][50]; 
-	int car[50][50]; int xcar, ycar;
-	int wall[50][50];
 	int diffPath[4];
+	int N, a, b;
+	int xgoal, ygoal;
+	int xcar, ycar;
 	int cost = 0;
-
 
 	scanf("%d", &N);
 	scanf("%d %d", &a, &b);
@@ -44,21 +43,18 @@ int main() {
 	for (int k = 0; k < N; k++) {
 		for (int i = 0; i < a; i++) {
 			for (int j = 0; j < b; j++) {
-				scanf("%d", &n[a][b]);
+				scanf("%d", &n[i][j]);
 
- 				switch (n[a][b]) {
-				case 0: open[a][b] = 1; break;
-				case 1: car[a][b] = 1;
-					xcar = a, ycar = b; break;
-				case 2: goal[50][50] = 1;
-					xgoal = a, ygoal = b; break;
-				case 3:wall[50][50] = 1; break;
-
+				switch (n[i][j]) {
+				case 0: open[i][j] = 1; break;
+				case 1: car[i][j] = 1; xcar = i, ycar = j; break;
+				case 2: goal[i][j] = 1; xgoal = i, ygoal = j; break;
+				case 3: wall[i][j] = 1; break;
 				}
 			}
 		}
 
-		while ((xcar == xgoal) && (ycar == ygoal)) {
+		while ((xcar != xgoal) || (ycar != ygoal)) {
 
 			if (openPath(n, xcar + 1, ycar)) {
 				diffPath[0] = abs(xgoal - (xcar + 1)) + abs(ygoal - ycar);
